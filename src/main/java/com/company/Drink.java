@@ -1,5 +1,10 @@
 package com.company;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "DRINK")
 public class Drink {
 
     private String id;
