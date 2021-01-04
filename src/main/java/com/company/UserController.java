@@ -13,6 +13,7 @@ import java.util.Map;
 public class UserController {
 
     private static Map<String, User> usersRegister = new HashMap<>();
+
     static {
         User user1 = new User();
         user1.setId("1");
@@ -31,14 +32,29 @@ public class UserController {
         usersRegister.put(user2.getId(), user2);
     }
 
+    private static Map<String, Drink> drinkMenu = new HashMap<>();
+    static {
+        Drink drink1 = new Drink();
+        drink1.setId("1");
+        drink1.setProductName("Vodka");
+        drink1.setForAdult(true);
+        drink1.setPrice(4.0);
+        drinkMenu.put(drink1.getId(), drink1);
+    }
+
     @RequestMapping(value = "/users")
     public ResponseEntity<Collection<User>> getUsers() {
         return new ResponseEntity<>(usersRegister.values(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users/{id}")
-    public ResponseEntity<User> getUsers(@PathVariable("id") String id){
+    public ResponseEntity<User> getUsers(@PathVariable("id") String id) {
         User user = usersRegister.get(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/drink-menu")
+    public ResponseEntity<Collection<Drink>> getDrinkMenu() {
+        return new ResponseEntity<>(drinkMenu.values(), HttpStatus.OK);
     }
 }
