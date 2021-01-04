@@ -4,18 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "DRINK")
 public class Drink implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "Product_name")
     private String productName;
-    @Column(name = "Price")
     private double price;
-    @Column(name = "For_adults")
     private boolean isForAdult;
 
     public int getId() {
