@@ -1,18 +1,24 @@
 package com.company;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "DRINK")
-public class Drink {
+public class Drink implements Serializable {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id", unique = true)
+    private int id;
+    @Column(name = "Product_name")
     private String productName;
+    @Column(name = "Price")
     private double price;
+    @Column(name = "For_adults")
     private boolean isForAdult;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -28,7 +34,7 @@ public class Drink {
         return isForAdult;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
