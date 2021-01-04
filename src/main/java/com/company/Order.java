@@ -1,11 +1,22 @@
 package com.company;
 
-public class Order {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "ORDERkk")
+public class Order implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String productName;
     private int amount;
     private double price;
+
+    @ManyToOne(targetEntity=User.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name="userId")//Optional
+    private User user;
 
     public int getId() {
         return id;
