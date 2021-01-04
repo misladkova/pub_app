@@ -1,14 +1,26 @@
 package com.company;
 
-public class User {
+import javax.persistence.*;
+import java.io.Serializable;
 
-    private String id;
+@Entity
+@Table(name = "USER")
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id", unique = true)
+    private int id;
+    @Column(name = "Name", nullable = false)
     private String name;
+    @Column(name = "Active", nullable = false)
     private boolean isActive;
+    @Column(name = "Adult")
     private boolean isAdult;
+    @Column(name = "Pocket", nullable = false)
     private double pocket;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -28,7 +40,7 @@ public class User {
         return pocket;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
