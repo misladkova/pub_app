@@ -2,22 +2,28 @@ package com.company;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "USER")
+//@Table(name = "USER")
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "Id", unique = true)
     private int id;
-    @Column(name = "Name", nullable = false)
+//    @Column(name = "Name", nullable = false)
+
+    @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
+
     private String name;
-    @Column(name = "Active", nullable = false)
+//    @Column(name = "Active", nullable = false)
     private boolean isActive;
-    @Column(name = "Adult")
+//    @Column(name = "Adult")
     private boolean isAdult;
-    @Column(name = "Pocket", nullable = false)
+//    @Column(name = "Pocket", nullable = false)
     private double pocket;
 
     public int getId() {
