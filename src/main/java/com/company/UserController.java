@@ -2,15 +2,13 @@ package com.company;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class UserController {
 
@@ -39,9 +37,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") String id, @RequestBody User user){
-
-        return new ResponseEntity<>(usersRegister.get(id), HttpStatus.OK);
+    public ResponseEntity<User> getUsers(@PathVariable("id") String id){
+        User user = usersRegister.get(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
 }
