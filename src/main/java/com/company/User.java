@@ -6,24 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Table(name = "USER")
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "Id", unique = true)
     private int id;
-//    @Column(name = "Name", nullable = false)
 
     @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
     private String name;
-//    @Column(name = "Active", nullable = false)
     private boolean isActive;
-//    @Column(name = "Adult")
     private boolean isAdult;
-//    @Column(name = "Pocket", nullable = false)
     private double pocket;
 
     public int getId() {
