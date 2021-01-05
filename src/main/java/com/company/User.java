@@ -12,14 +12,22 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.EAGER, mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
     private String username;
-    private String password;
     private boolean isActive;
     private boolean isAdult;
     private double pocket;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public int getId() {
         return id;
@@ -45,7 +53,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public void setName(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -59,13 +67,5 @@ public class User implements Serializable {
 
     public void setPocket(double pocket) {
         this.pocket = pocket;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }
