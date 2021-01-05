@@ -18,6 +18,9 @@ public class Order implements Serializable {
 //    @JoinColumn(name="userId")//Optional
     private User user;
 
+    @ManyToOne(targetEntity=Drink.class, fetch = FetchType.LAZY)
+    private Drink drink;
+
     public int getId() {
         return id;
     }
