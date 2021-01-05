@@ -15,7 +15,8 @@ public class User implements Serializable {
     @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
-    private String name;
+    private String username;
+    private String password;
     private boolean isActive;
     private boolean isAdult;
     private double pocket;
@@ -24,8 +25,8 @@ public class User implements Serializable {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     public boolean isActive() {
@@ -44,8 +45,8 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String username) {
+        this.username = username;
     }
 
     public void setActive(boolean active) {
@@ -58,5 +59,13 @@ public class User implements Serializable {
 
     public void setPocket(double pocket) {
         this.pocket = pocket;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
