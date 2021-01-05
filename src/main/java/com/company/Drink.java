@@ -2,6 +2,8 @@ package com.company;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Drink implements Serializable {
@@ -9,6 +11,10 @@ public class Drink implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.EAGER, mappedBy = "drink")
+    private List<Order> orders = new ArrayList<>();
+
     private String productName;
     private double price;
     private boolean isForAdult;
