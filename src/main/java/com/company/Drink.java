@@ -10,7 +10,7 @@ public class Drink implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String productName;
-    private double price;
+    private double pr555ice;
     private boolean isForAdult;
 
     public int getId() {
