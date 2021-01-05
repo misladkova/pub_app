@@ -3,8 +3,12 @@ package com.company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +23,25 @@ public class UserController {
 
     @Autowired
     DrinkRepository drinkRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
+
+////    private UserRepository userRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserController(BCryptPasswordEncoder bCryptPasswordEncoder)
+    {
+//        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+//    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
+//    {
+//        this.userRepository = userRepository;
+//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+//    }
+
 
 //    private static Map<Integer, User> usersRegister = new HashMap<>();
 //
@@ -56,12 +79,15 @@ public class UserController {
 //        return userRepository.findAll();
 //        return new ResponseEntity<>(usersRegister.values(), HttpStatus.OK);
     public ResponseEntity<Collection<User>> getUser() {
-        User user1 = new User();
-        user1.setName("Mark");
-        user1.setActive(true);
-        user1.setAdult(false);
-        user1.setPocket(89.5);
-        userRepository.save(user1);
+//        https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot/31160173
+        String details = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("aaa " + details);
+//        User user1 = new User();
+//        user1.setUsername("Mark");
+//        user1.setActive(true);
+//        user1.setAdult(false);
+//        user1.setPocket(89.5);
+//        userRepository.save(user1);
         Collection<User> users = userRepository.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -74,6 +100,12 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public void signUp(@RequestBody User user){
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
     @RequestMapping(value = "/drink-menu")
     public ResponseEntity<Collection<Drink>> getDrinkMenu() {
         Drink drink1 = new Drink();
@@ -83,5 +115,23 @@ public class UserController {
         drinkRepository.save(drink1);
         Collection<Drink> drinks = drinkRepository.findAll();
         return new ResponseEntity<>(drinks, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/drink-menu", method = RequestMethod.POST)
+    public ResponseEntity<Drink> createDrink(@RequestBody Drink drink) {
+        drinkRepository.save(drink);
+        return new ResponseEntity<>(drink, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/orders")
+    public ResponseEntity<Collection<Order>> getOrders() {
+        Collection<Order> orders = orderRepository.findAll();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/orders", method = RequestMethod.POST)
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+        orderRepository.save(order);
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 }
