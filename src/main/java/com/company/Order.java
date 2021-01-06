@@ -17,9 +17,11 @@ public class Order implements Serializable {
     @ManyToOne(targetEntity=User.class, fetch = FetchType.LAZY)
 //    @JoinColumn(name="userId")//Optional
     private User user;
+    public void setUser(User user){this.user=user;}
 
     @ManyToOne(targetEntity=Drink.class, fetch = FetchType.LAZY)
     private Drink drink;
+    public void setDrink(Drink drink){this.drink=drink;}
 
     public int getId() {
         return id;
