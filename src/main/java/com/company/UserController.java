@@ -123,15 +123,51 @@ public class UserController {
         return new ResponseEntity<>(drink, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/orders")
-    public ResponseEntity<Collection<Order>> getOrders() {
+//    @RequestMapping(value = "/orders")
+//    public ResponseEntity<Collection<Order>> getOrders() {
+//        Collection<Order> orders = orderRepository.findAll();
+//        return new ResponseEntity<>(orders, HttpStatus.OK);
+//    }
+
+    @RequestMapping(value = "/buy", method = RequestMethod.POST)
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+        String currentUsername = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(currentUsername);
+        User user = userRepository.findByUsername(currentUsername);
+        System.out.println(user);
+        Drink drink = drinkRepository.findByProductName(order.getProductName());
+        System.out.println(drink);
+        Double sumPrice = drink.getPrice()*order.getAmount();
+        System.out.println(sumPrice);
+        if(user.getPocket()<sumPrice) {
+            return new ResponseEntity<>(new Order(), HttpStatus.BAD_REQUEST);
+        }
+        if(drink.isForAdult() && !user.isAdult()){
+            return new ResponseEntity<>(new Order(), HttpStatus.BAD_REQUEST);
+        }
+        order.setUser(user);
+        order.setDrink(drink);
+        order.setPrice(sumPrice);
+        user.setPocket(user.getPocket()-sumPrice);
+        orderRepository.save(order);
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/summary/all")
+    public ResponseEntity<Collection<Order>> getOrders(){
         Collection<Order> orders = orderRepository.findAll();
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/orders", method = RequestMethod.POST)
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        orderRepository.save(order);
-        return new ResponseEntity<>(order, HttpStatus.CREATED);
-    }
+//    @RequestMapping(value = "/summary/{productID}")
+//    public ResponseEntity<Collection<Order>> getDrinkSummary(@PathVariable("productID") Integer id){
+//        Collection<Order> orders = orderRepository.findAllById(id);
+//        return new ResponseEntity<>()
+//    }
+//
+//    @RequestMapping(value = "/summary/{userID}")
+//    public ResponseEntity<Collection<Order>> getUserSummary(@PathVariable("userID") Integer id){
+//        Collection<Order> orders = orderRepository.findAllById(id);
+//        return new ResponseEntity<>()
+//    }
 }
