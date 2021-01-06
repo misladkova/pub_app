@@ -19,9 +19,17 @@ public class Order implements Serializable {
     private User user;
     public void setUser(User user){this.user=user;}
 
+    public User getUser() {
+        return user;
+    }
+
     @ManyToOne(targetEntity=Drink.class, fetch = FetchType.LAZY)
     private Drink drink;
     public void setDrink(Drink drink){this.drink=drink;}
+
+    public Drink getDrink() {
+        return drink;
+    }
 
     public int getId() {
         return id;
