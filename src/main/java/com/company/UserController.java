@@ -94,8 +94,6 @@ public class UserController {
 
     @RequestMapping(value = "/users/{id}")
     public ResponseEntity<User> getUsers(@PathVariable("id") Integer id) {
-//        User user = usersRegister.get(id);
-//        return new ResponseEntity<>(user, HttpStatus.OK);
         User user = userRepository.findById(id).get();
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
