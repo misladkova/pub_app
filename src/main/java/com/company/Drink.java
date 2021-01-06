@@ -50,4 +50,12 @@ public class Drink implements Serializable {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 }
