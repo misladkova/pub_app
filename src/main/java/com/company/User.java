@@ -1,5 +1,7 @@
 package com.company;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,9 +14,9 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(targetEntity=Order.class , fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonManagedReference
     private List<Order> orders = new ArrayList<>();
-
     private String username;
     private boolean isActive;
     private boolean isAdult;
@@ -24,47 +26,36 @@ public class User implements Serializable {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public int getId() {
         return id;
     }
-
     public String getUsername() {
         return username;
     }
-
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
-
-    public boolean isAdult() {
+    public boolean getIsAdult() {
         return isAdult;
     }
-
     public double getPocket() {
         return pocket;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
-
     public void setActive(boolean active) {
         isActive = active;
     }
-
     public void setAdult(boolean adult) {
         isAdult = adult;
     }
-
     public void setPocket(double pocket) {
         this.pocket = pocket;
     }

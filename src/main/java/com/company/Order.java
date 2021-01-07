@@ -1,5 +1,7 @@
 package com.company;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,9 +17,9 @@ public class Order implements Serializable {
     private double price;
 
     @ManyToOne(targetEntity=User.class, fetch = FetchType.LAZY)
-//    @JoinColumn(name="userId")//Optional
+    @JsonBackReference
     private User user;
-    public void setUser(User user){this.user=user;}
+//    public void setUser(User user){this.user=user;}
 
     public User getUser() {
         return user;
@@ -25,11 +27,11 @@ public class Order implements Serializable {
 
     @ManyToOne(targetEntity=Drink.class, fetch = FetchType.LAZY)
     private Drink drink;
-    public void setDrink(Drink drink){this.drink=drink;}
+//    public void setDrink(Drink drink){this.drink=drink;}
 
-    public Drink getDrink() {
-        return drink;
-    }
+//    public Drink getDrink() {
+//        return drink;
+//    }
 
     public int getId() {
         return id;

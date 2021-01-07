@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -79,6 +79,7 @@ public class UserController {
 //        return userRepository.findAll();
 //        return new ResponseEntity<>(usersRegister.values(), HttpStatus.OK);
     public ResponseEntity<Collection<User>> getUser() {
+//    public ResponseEntity<Collection<Order>> getUser() {
 //        https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot/31160173
         String details = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("aaa " + details);
@@ -89,7 +90,9 @@ public class UserController {
 //        user1.setPocket(89.5);
 //        userRepository.save(user1);
         Collection<User> users = userRepository.findAll();
+//        Collection<Order> orders = orderRepository.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
+//        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users/{id}")
@@ -106,16 +109,16 @@ public class UserController {
 
     @RequestMapping(value = "/drink-menu")
     public ResponseEntity<Collection<Drink>> getDrinkMenu() {
-        Drink drink1 = new Drink();
-        drink1.setProductName("Vodka");
-        drink1.setForAdult(true);
-        drink1.setPrice(4.0);
-        drinkRepository.save(drink1);
+//        Drink drink1 = new Drink();
+//        drink1.setProductName("Vodka");
+//        drink1.setForAdult(true);
+//        drink1.setPrice(4.0);
+//        drinkRepository.save(drink1);
         Collection<Drink> drinks = drinkRepository.findAll();
         return new ResponseEntity<>(drinks, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/drink-menu", method = RequestMethod.POST)
+    @RequestMapping(value = "/drink-menu/add", method = RequestMethod.POST)
     public ResponseEntity<Drink> createDrink(@RequestBody Drink drink) {
         drinkRepository.save(drink);
         return new ResponseEntity<>(drink, HttpStatus.CREATED);
@@ -140,11 +143,11 @@ public class UserController {
         if(user.getPocket()<sumPrice) {
             return new ResponseEntity<>(new Order(), HttpStatus.BAD_REQUEST);
         }
-        if(drink.isForAdult() && !user.isAdult()){
+        if(drink.isForAdult() && !user.getIsAdult()){
             return new ResponseEntity<>(new Order(), HttpStatus.BAD_REQUEST);
         }
-        order.setUser(user);
-        order.setDrink(drink);
+//        order.setUser(user);
+//        order.setDrink(drink);
         order.setPrice(sumPrice);
         user.setPocket(user.getPocket()-sumPrice);
         orderRepository.save(order);
@@ -157,15 +160,23 @@ public class UserController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/summary/{productID}")
-//    public ResponseEntity<Collection<Order>> getDrinkSummary(@PathVariable("productID") Integer id){
-//        Collection<Order> orders = orderRepository.findAllById(id);
-//        return new ResponseEntity<>()
+//    @RequestMapping(value = "/summary/product/{id}")
+//    public ResponseEntity<Collection<Order>> getDrinkSummary(@PathVariable("id") Integer id){
+//        Collection<Order> orders = orderRepository.findByDrinkId(id);
+//
+
+//        Set<Order> drinks = new HashSet<>(orders);
+//        System.out.println(drinks);
+//        Set<String> s = new HashSet<>();
+//        for(Order o: orders){
+//            s.add(o.getProductName());
+//        }
+//        return new ResponseEntity<>(orders, HttpStatus.OK);
 //    }
 //
-//    @RequestMapping(value = "/summary/{userID}")
-//    public ResponseEntity<Collection<Order>> getUserSummary(@PathVariable("userID") Integer id){
-//        Collection<Order> orders = orderRepository.findAllById(id);
+//    @RequestMapping(value = "/summary/user")
+//    public ResponseEntity<Collection<Order>> getUserSummary(){
+//        Collection<Order> orders = orderRepository.findAll();
 //        return new ResponseEntity<>()
 //    }
 }

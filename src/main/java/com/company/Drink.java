@@ -12,7 +12,7 @@ public class Drink implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.EAGER, mappedBy = "drink")
+    @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "drink")
     private List<Order> orders = new ArrayList<>();
 
     private String productName;
