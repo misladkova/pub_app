@@ -26,12 +26,10 @@ public class UserController {
     @Autowired
     OrderRepository orderRepository;
 
-////    private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserController(BCryptPasswordEncoder bCryptPasswordEncoder)
     {
-//        this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -73,12 +71,7 @@ public class UserController {
 //    }
 
     @RequestMapping(value = "/users")
-//    public List<User> getUsers() {
-
-//        return userRepository.findAll();
-//        return new ResponseEntity<>(usersRegister.values(), HttpStatus.OK);
     public ResponseEntity<Collection<User>> getUser() {
-//    public ResponseEntity<Collection<Order>> getUser() {
 //        https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot/31160173
         String details = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("aaa " + details);
@@ -89,9 +82,7 @@ public class UserController {
 //        user1.setPocket(89.5);
 //        userRepository.save(user1);
         Collection<User> users = userRepository.findAll();
-//        Collection<Order> orders = orderRepository.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
-//        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users/{id}")
@@ -122,12 +113,6 @@ public class UserController {
         drinkRepository.save(drink);
         return new ResponseEntity<>(drink, HttpStatus.CREATED);
     }
-
-//    @RequestMapping(value = "/orders")
-//    public ResponseEntity<Collection<Order>> getOrders() {
-//        Collection<Order> orders = orderRepository.findAll();
-//        return new ResponseEntity<>(orders, HttpStatus.OK);
-//    }
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
