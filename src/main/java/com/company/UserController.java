@@ -178,18 +178,19 @@ public class UserController {
     }
 
 
-//        Set<Order> drinks = new HashSet<>(orders);
-//        System.out.println(drinks);
-//        Set<String> s = new HashSet<>();
-//        for(Order o: orders){
-//            s.add(o.getProductName());
-//        }
-//        return new ResponseEntity<>(orders, HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/summary/user")
-//    public ResponseEntity<Collection<Order>> getUserSummary(){
-//        Collection<Order> orders = orderRepository.findAll();
-//        return new ResponseEntity<>()
-//    }
+    @RequestMapping(value = "/summary/user/{id}")
+    public ResponseEntity<Collection<OrderUserDTO>> getUserSummary(@PathVariable("id") Integer id){
+        Collection<Order> orders = orderRepository.findByUserId(id);
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        List<OrderUserDTO> ordersDTO = new ArrayList<>();
+        for (Order o: orders){
+            OrderUserDTO orderDTO = modelMapper.map(o, OrderUserDTO.class);
+            System.out.println(orderDTO);
+            ordersDTO.add(orderDTO);
+        }
+
+        return new ResponseEntity<>(ordersDTO, HttpStatus.OK);
+    }
 }
