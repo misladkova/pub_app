@@ -17,21 +17,22 @@ public class Order implements Serializable {
     private double price;
 
     @ManyToOne(targetEntity=User.class, fetch = FetchType.LAZY)
-    @JsonBackReference
+
     private User user;
-//    public void setUser(User user){this.user=user;}
+    public void setUser(User user){this.user=user;}
 
     public User getUser() {
         return user;
     }
 
     @ManyToOne(targetEntity=Drink.class, fetch = FetchType.LAZY)
-    private Drink drink;
-//    public void setDrink(Drink drink){this.drink=drink;}
 
-//    public Drink getDrink() {
-//        return drink;
-//    }
+    private Drink drink;
+    public void setDrink(Drink drink){this.drink=drink;}
+
+    public Drink getDrink() {
+        return drink;
+    }
 
     public int getId() {
         return id;
