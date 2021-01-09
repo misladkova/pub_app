@@ -75,12 +75,6 @@ public class UserController {
 //        https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot/31160173
         String details = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("aaa " + details);
-//        User user1 = new User();
-//        user1.setUsername("Mark");
-//        user1.setActive(true);
-//        user1.setAdult(false);
-//        user1.setPocket(89.5);
-//        userRepository.save(user1);
         Collection<User> users = userRepository.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -99,11 +93,6 @@ public class UserController {
 
     @RequestMapping(value = "/drink-menu")
     public ResponseEntity<Collection<Drink>> getDrinkMenu() {
-//        Drink drink1 = new Drink();
-//        drink1.setProductName("Vodka");
-//        drink1.setForAdult(true);
-//        drink1.setPrice(4.0);
-//        drinkRepository.save(drink1);
         Collection<Drink> drinks = drinkRepository.findAll();
         return new ResponseEntity<>(drinks, HttpStatus.OK);
     }
@@ -161,7 +150,6 @@ public class UserController {
 
         return new ResponseEntity<>(ordersDTO, HttpStatus.OK);
     }
-
 
     @RequestMapping(value = "/summary/user/{id}")
     public ResponseEntity<Collection<OrderUserDTO>> getUserSummary(@PathVariable("id") Integer id){
