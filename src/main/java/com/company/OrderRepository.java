@@ -7,4 +7,6 @@ import java.util.Collection;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     Collection<Order> findByDrinkId(int drink_id);
+
+    Collection<Order> findByUserId(int user_id);
 }
