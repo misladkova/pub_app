@@ -33,43 +33,6 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-//    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
-//    {
-//        this.userRepository = userRepository;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
-
-
-//    private static Map<Integer, User> usersRegister = new HashMap<>();
-//
-//    static {
-//    User user1 = new User();
-//    user1.setName("Mark");
-//    user1.setActive(true);
-//    user1.setAdult(false);
-//    user1.setPocket(89.5);
-//        usersRegister.put(user1.getId(), user1);
-//    userRepository.save(user1);
-//
-//    User user2 = new User();
-//    user2.setName("Lina");
-//    user2.setActive(false);
-//    user2.setAdult(true);
-//    user2.setPocket(54.7);
-//}
-//        usersRegister.put(user2.getId(), user2);
-//    }
-//
-//    private static Map<Integer, Drink> drinkMenu = new HashMap<>();
-//    static {
-//        Drink drink1 = new Drink();
-//        drink1.setId(1);
-//        drink1.setProductName("Vodka");
-//        drink1.setForAdult(true);
-//        drink1.setPrice(4.0);
-//        drinkMenu.put(drink1.getId(), drink1);
-//    }
-
     @RequestMapping(value = "/users")
     public ResponseEntity<Collection<User>> getUser() {
 //        https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot/31160173
@@ -120,7 +83,7 @@ public class UserController {
             return new ResponseEntity<>(new Order(), HttpStatus.BAD_REQUEST);
         }
         order.setUser(user);
-//        order.setDrink(drink);
+        order.setDrink(drink);
         order.setPrice(sumPrice);
         user.setPocket(user.getPocket()-sumPrice);
         orderRepository.save(order);
