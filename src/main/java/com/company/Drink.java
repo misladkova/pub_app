@@ -13,6 +13,7 @@ public class Drink implements Serializable {
     private int id;
 
     @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "drink")
+
     private List<Order> orders = new ArrayList<>();
 
     private String productName;
