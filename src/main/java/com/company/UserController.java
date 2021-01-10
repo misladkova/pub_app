@@ -34,16 +34,26 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users")
-    public ResponseEntity<Collection<User>> getUser() {
+    public ResponseEntity<Collection<UserDTO>> getUsers() {
 //        https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot/31160173
         String details = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("aaa " + details);
         Collection<User> users = userRepository.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for (User u: users){
+            UserDTO userDTO = modelMapper.map(u, UserDTO.class);
+            System.out.println(userDTO);
+            usersDTO.add(userDTO);
+        }
+
+        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users/{id}")
-    public ResponseEntity<User> getUsers(@PathVariable("id") Integer id) {
+    public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
         User user = userRepository.findById(id).get();
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
