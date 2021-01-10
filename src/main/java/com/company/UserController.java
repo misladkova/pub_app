@@ -33,7 +33,7 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @RequestMapping(value = "/users")
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<Collection<UserDTO>> getUsers() {
 //        https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot/31160173
         String details = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -52,7 +52,7 @@ public class UserController {
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users/{id}")
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> getUser(@PathVariable("id") Integer id) {
         User user = userRepository.findById(id).get();
 
@@ -69,7 +69,7 @@ public class UserController {
         userRepository.save(user);
     }
 
-    @RequestMapping(value = "/drink-menu")
+    @RequestMapping(value = "/drink-menu", method = RequestMethod.GET)
     public ResponseEntity<Collection<DrinkDTO>> getDrinkMenu() {
         Collection<Drink> drinks = drinkRepository.findAll();
 
@@ -115,13 +115,13 @@ public class UserController {
         return new ResponseEntity<>(new Order(), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/summary/all")
+    @RequestMapping(value = "/summary/all", method = RequestMethod.GET)
     public ResponseEntity<Collection<Order>> getOrders(){
         Collection<Order> orders = orderRepository.findAll();
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/summary/product/{id}")
+    @RequestMapping(value = "/summary/product/{id}", method = RequestMethod.GET)
     public ResponseEntity<Collection<OrderProductDTO>> getDrinkSummary(@PathVariable("id") Integer id) {
         Collection<Order> orders = orderRepository.findByDrinkId(id);
         System.out.println(orders);
@@ -139,7 +139,7 @@ public class UserController {
         return new ResponseEntity<>(ordersDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/summary/user/{id}")
+    @RequestMapping(value = "/summary/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<Collection<OrderUserDTO>> getUserSummary(@PathVariable("id") Integer id){
         Collection<Order> orders = orderRepository.findByUserId(id);
 
