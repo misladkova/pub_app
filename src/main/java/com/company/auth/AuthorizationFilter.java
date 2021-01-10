@@ -1,4 +1,4 @@
-package com.company;
+package com.company.auth;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;

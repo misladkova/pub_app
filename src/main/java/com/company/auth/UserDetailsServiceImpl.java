@@ -1,5 +1,7 @@
-package com.company;
+package com.company.auth;
 
+import com.company.user.User;
+import com.company.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

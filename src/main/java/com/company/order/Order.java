@@ -1,4 +1,7 @@
-package com.company;
+package com.company.order;
+
+import com.company.drink.Drink;
+import com.company.user.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +17,7 @@ public class Order implements Serializable {
     private int amount;
     private double price;
 
-    @ManyToOne(targetEntity=User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity= User.class, fetch = FetchType.LAZY)
 
     private User user;
     public void setUser(User user){this.user=user;}
@@ -23,7 +26,7 @@ public class Order implements Serializable {
         return user;
     }
 
-    @ManyToOne(targetEntity=Drink.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity= Drink.class, fetch = FetchType.LAZY)
 
     private Drink drink;
     public void setDrink(Drink drink){this.drink=drink;}

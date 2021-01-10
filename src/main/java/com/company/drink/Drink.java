@@ -1,4 +1,6 @@
-package com.company;
+package com.company.drink;
+
+import com.company.order.Order;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +14,7 @@ public class Drink implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToMany(targetEntity=Order.class,cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "drink")
+    @OneToMany(targetEntity= Order.class,cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "drink")
 
     private List<Order> orders = new ArrayList<>();
 

@@ -1,4 +1,4 @@
-package com.company;
+package com.company.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

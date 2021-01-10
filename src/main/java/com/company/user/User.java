@@ -1,4 +1,6 @@
-package com.company;
+package com.company.user;
+
+import com.company.order.Order;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +14,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToMany(targetEntity=Order.class , fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(targetEntity= Order.class , fetch = FetchType.LAZY, mappedBy = "user")
 
     private List<Order> orders = new ArrayList<>();
     private String username;

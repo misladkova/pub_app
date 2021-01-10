@@ -1,5 +1,12 @@
 package com.company;
 
+import com.company.drink.Drink;
+import com.company.drink.DrinkDTO;
+import com.company.drink.DrinkRepository;
+import com.company.order.*;
+import com.company.user.User;
+import com.company.user.UserDTO;
+import com.company.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

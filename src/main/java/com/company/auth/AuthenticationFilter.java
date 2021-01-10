@@ -1,4 +1,4 @@
-package com.company;
+package com.company.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -33,7 +33,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
         {
             try
             {
-                com.company.User creds = new ObjectMapper().readValue(request.getInputStream(), com.company.User.class);
+                com.company.user.User creds = new ObjectMapper().readValue(request.getInputStream(), com.company.user.User.class);
                 return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
                         creds.getPassword(),new ArrayList<>()));
             }

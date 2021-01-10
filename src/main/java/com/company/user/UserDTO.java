@@ -1,4 +1,6 @@
-package com.company;
+package com.company.user;
+
+import com.company.order.OrderDTO;
 
 import java.util.List;
 
