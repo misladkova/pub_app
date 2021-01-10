@@ -70,9 +70,19 @@ public class UserController {
     }
 
     @RequestMapping(value = "/drink-menu")
-    public ResponseEntity<Collection<Drink>> getDrinkMenu() {
+    public ResponseEntity<Collection<DrinkDTO>> getDrinkMenu() {
         Collection<Drink> drinks = drinkRepository.findAll();
-        return new ResponseEntity<>(drinks, HttpStatus.OK);
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        List<DrinkDTO> drinksDTO = new ArrayList<>();
+        for (Drink d: drinks){
+            DrinkDTO drinkDTO = modelMapper.map(d, DrinkDTO.class);
+            System.out.println(drinkDTO);
+            drinksDTO.add(drinkDTO);
+        }
+
+        return new ResponseEntity<>(drinksDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/drink-menu/add", method = RequestMethod.POST)
