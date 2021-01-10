@@ -53,9 +53,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable("id") Integer id) {
         User user = userRepository.findById(id).get();
-        return new ResponseEntity<>(user, HttpStatus.OK);
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
