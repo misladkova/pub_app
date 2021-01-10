@@ -1,7 +1,5 @@
 package com.company;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ public class User implements Serializable {
     private int id;
 
     @OneToMany(targetEntity=Order.class , fetch = FetchType.LAZY, mappedBy = "user")
-    @JsonManagedReference
+
     private List<Order> orders = new ArrayList<>();
     private String username;
     private boolean isActive;
