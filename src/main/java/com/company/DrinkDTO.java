@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.List;
-
 public class DrinkDTO {
 
     private String productName;
